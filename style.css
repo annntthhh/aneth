@@ -1,19 +1,18 @@
 :root{
   --bg: #ffffff;
-  --card-blue: #bfeaff; /* azul cielo suave */
-  --accent: #1976d2;
-  --card: #bfeaff;
-  --shadow: rgba(0,0,0,0.12);
-  --text: #222;
+  --envelope: #cfefff; /* azul cielo */
+  --accent: #1e88e5;
+  --shadow: rgba(0,0,0,0.18);
+  --text: #07324a;
 }
 
-/* reset sencillo */
+/* básico */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  background: var(--bg);
+  background:var(--bg);
   color:var(--text);
   display:flex;
   align-items:center;
@@ -22,122 +21,126 @@ body{
 }
 
 /* contenedor */
-.stage{
-  text-align:center;
-  max-width:420px;
-  width:100%;
-}
+.stage{ text-align:center; max-width:520px; width:100%; }
 
-/* sobre/carta */
+/* SOBRE: estructura más realista */
 .envelope{
   position:relative;
-  width:340px;
-  height:240px;
-  perspective:1000px;
+  width:380px;
+  height:280px;
+  perspective:1200px;
   margin:0 auto 12px;
-  cursor:pointer;
-  outline:none;
-}
-.envelope .flap{
-  position:absolute;
-  left:0;
-  right:0;
-  top:0;
-  height:120px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06)), var(--card-blue);
-  border-radius:8px 8px 0 0;
-  transform-origin:top center;
-  transform:rotateX(0deg);
-  transition:transform 650ms cubic-bezier(.2,.9,.2,1);
-  box-shadow: 0 8px 18px var(--shadow);
-  z-index:2;
 }
 
-/* tarjeta interior con estampado de corazones (SVG tiny repeat) */
+/* solapa superior (triangular) */
+.envelope .flap{
+  position:absolute;
+  left:20px;
+  right:20px;
+  top:0;
+  height:140px;
+  background: linear-gradient(180deg, #e9f8ff, var(--envelope));
+  border-radius:10px;
+  transform-origin:top center;
+  transform:rotateX(0deg);
+  transition:transform 700ms cubic-bezier(.2,.9,.2,1);
+  box-shadow: 0 18px 40px var(--shadow);
+  z-index:3;
+  clip-path: polygon(0 0, 100% 0, 50% 75%);
+}
+
+/* cuerpo del sobre (borde y efecto 3D) */
+.envelope .body{
+  position:absolute;
+  left:8px;
+  right:8px;
+  top:74px;
+  bottom:12px;
+  border-radius:12px;
+  perspective:800px;
+  transform-style:preserve-3d;
+  z-index:1;
+}
+
+/* tarjeta interior con estampado de corazones repetido y más visible */
 .envelope .card{
   position:absolute;
-  left:14px;
-  right:14px;
-  top:46px;
-  bottom:14px;
-  background-color: var(--card-blue);
-  border-radius:10px;
-  padding:26px 20px;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+  left:8px;
+  right:8px;
+  top:0;
+  bottom:0;
+  background-color: var(--envelope);
+  border-radius:12px;
+  padding:32px 24px;
+  box-shadow: 0 18px 46px rgba(2,28,45,0.06);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   transform:translateY(0);
   transition:transform 420ms ease, opacity 300ms ease;
-  z-index:1;
-  /* patrón de corazones sutil */
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'><path fill='%23ffffff' fill-opacity='0.08' d='M13 5.6c1.3-2.4 4.9-2.4 6.2 0 1 1.8.1 4.2-3.1 7.1L13 19 9.9 12.7C6.7 9.8 5.9 7.4 6.9 5.6 8.2 3.2 11.7 3.2 13 5.6z'/></svg>");
+  z-index:2;
+  /* patrón de corazones más marcado (SVG repeat) */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path fill='%23ffffff' fill-opacity='0.14' d='M12 21s-6.716-4.35-9.094-7.044C0.833 11.8 2.172 7 6 7c1.927 0 3.02 1.23 3.894 2.06C10.98 8.23 12.073 7 14 7c3.828 0 5.167 4.8 3.094 6.956C18.716 16.65 12 21 12 21z'/></svg>");
   background-repeat: repeat;
-  background-position: center;
-  background-size: 26px 26px;
+  background-size: 48px 48px;
 }
 
 /* encabezado y mensaje */
 .envelope h1{
   margin:0 0 10px;
-  font-size:20px;
+  font-size:22px;
   color:var(--accent);
+  letter-spacing:0.4px;
 }
 .message{
   margin:0 0 14px;
   font-size:18px;
   opacity:0;
-  transform:translateY(10px);
+  transform:translateY(12px) scale(0.99);
   transition:opacity 420ms ease 180ms, transform 420ms ease 180ms;
-  color:#043049;
+  color: #032a3a;
   text-align:center;
-  /* permitir quiebre de línea para que el texto largo se muestre ordenado */
   white-space:pre-wrap;
   word-break:break-word;
-  letter-spacing:0.4px;
+  line-height:1.2;
 }
 
-/* botón */
-.open-btn{
+/* pequeño brillo y corazón flotante */
+.envelope::after{
+  content:'
+';
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:48px;
+  height:48px;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0));
+  border-radius:50%;
+  z-index:4;
+}
+
+/* botones */
+.controls{ display:flex; gap:10px; align-items:center; justify-content:center; }
+.open-btn, .music-btn{
   border:0;
   background:var(--accent);
   color:white;
   padding:8px 14px;
-  border-radius:20px;
+  border-radius:22px;
   cursor:pointer;
-  font-weight:600;
-  box-shadow: 0 6px 14px rgba(25,118,210,0.18);
+  font-weight:700;
+  box-shadow: 0 8px 18px rgba(30,136,229,0.18);
 }
 
-/* estado abierto */
-.envelope.open .flap{
-  transform:rotateX(-180deg);
-}
-.envelope.open .card{
-  transform:translateY(-20px);
-}
-.envelope.open .message{
-  opacity:1;
-  transform:translateY(0);
-}
+/* estado abierto (solapa gira y carta sube) */
+.envelope.open .flap{ transform: rotateX(-180deg); }
+.envelope.open .card{ transform: translateY(-22px); }
+.envelope.open .message{ opacity:1; transform:translateY(0) scale(1); }
 
-/* focus accesible */
-.envelope:focus{
-  box-shadow:0 0 0 6px rgba(25,118,210,0.08);
-  border-radius:8px;
-}
-
-/* pista */
-.hint{
-  margin:8px 0 0;
-  color:#666;
-  font-size:14px;
-}
-
-/* adaptativo */
-@media (max-width:420px){
-  .envelope{ width:92%; height:220px; }
-  .envelope .card{ top:44px; padding:20px; }
+/* pista y responsive */
+.hint{ margin-top:12px; color:#666; font-size:14px; }
+@media (max-width:520px){
+  .envelope{ width:94%; height:240px; }
   .message{ font-size:16px; }
 }

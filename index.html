@@ -9,15 +9,26 @@
 <body>
   <main class="stage">
     <div class="envelope" id="envelope" tabindex="0" role="button" aria-pressed="false" aria-label="Abrir carta">
-      <div class="flap"></div>
-      <div class="card">
-        <h1>Para ti</h1>
-        <p class="message" id="message">teamomuchomuchomuchomuchomicorazoncitodemelon,amordemivida,negrodemisojos,mihombre,solomiomiomiomiomioydenadiemas</p>
-        <button id="openBtn" class="open-btn">Abrir</button>
+      <div class="flap" aria-hidden="true"></div>
+      <div class="body">
+        <div class="card">
+          <h1>Para ti</h1>
+          <p class="message" id="message">teamomuchomuchomuchomuchomicorazoncitodemelon,amordemivida,negrodemisojos,mihombre,solomiomiomiomiomioydenadiemas</p>
+          <div class="controls">
+            <button id="openBtn" class="open-btn">Abrir</button>
+            <button id="musicBtn" class="music-btn" aria-pressed="false">Reproducir canción</button>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="hint">Haz clic en la carta o presiona Enter</p>
+
+    <p class="hint">Haz clic en el sobre para abrirlo</p>
+
+    <div class="player-wrap" aria-hidden="true">
+      <iframe id="ytPlayer" width="0" height="0" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>
