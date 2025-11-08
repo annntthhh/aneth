@@ -1,0 +1,143 @@
+:root{
+  --bg: #ffffff;
+  --card-blue: #bfeaff; /* azul cielo suave */
+  --accent: #1976d2;
+  --card: #bfeaff;
+  --shadow: rgba(0,0,0,0.12);
+  --text: #222;
+}
+
+/* reset sencillo */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+
+/* contenedor */
+.stage{
+  text-align:center;
+  max-width:420px;
+  width:100%;
+}
+
+/* sobre/carta */
+.envelope{
+  position:relative;
+  width:340px;
+  height:240px;
+  perspective:1000px;
+  margin:0 auto 12px;
+  cursor:pointer;
+  outline:none;
+}
+.envelope .flap{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:120px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06)), var(--card-blue);
+  border-radius:8px 8px 0 0;
+  transform-origin:top center;
+  transform:rotateX(0deg);
+  transition:transform 650ms cubic-bezier(.2,.9,.2,1);
+  box-shadow: 0 8px 18px var(--shadow);
+  z-index:2;
+}
+
+/* tarjeta interior con estampado de corazones (SVG tiny repeat) */
+.envelope .card{
+  position:absolute;
+  left:14px;
+  right:14px;
+  top:46px;
+  bottom:14px;
+  background-color: var(--card-blue);
+  border-radius:10px;
+  padding:26px 20px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transform:translateY(0);
+  transition:transform 420ms ease, opacity 300ms ease;
+  z-index:1;
+  /* patrón de corazones sutil */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'><path fill='%23ffffff' fill-opacity='0.08' d='M13 5.6c1.3-2.4 4.9-2.4 6.2 0 1 1.8.1 4.2-3.1 7.1L13 19 9.9 12.7C6.7 9.8 5.9 7.4 6.9 5.6 8.2 3.2 11.7 3.2 13 5.6z'/></svg>");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 26px 26px;
+}
+
+/* encabezado y mensaje */
+.envelope h1{
+  margin:0 0 10px;
+  font-size:20px;
+  color:var(--accent);
+}
+.message{
+  margin:0 0 14px;
+  font-size:18px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 420ms ease 180ms, transform 420ms ease 180ms;
+  color:#043049;
+  text-align:center;
+  /* permitir quiebre de línea para que el texto largo se muestre ordenado */
+  white-space:pre-wrap;
+  word-break:break-word;
+  letter-spacing:0.4px;
+}
+
+/* botón */
+.open-btn{
+  border:0;
+  background:var(--accent);
+  color:white;
+  padding:8px 14px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow: 0 6px 14px rgba(25,118,210,0.18);
+}
+
+/* estado abierto */
+.envelope.open .flap{
+  transform:rotateX(-180deg);
+}
+.envelope.open .card{
+  transform:translateY(-20px);
+}
+.envelope.open .message{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* focus accesible */
+.envelope:focus{
+  box-shadow:0 0 0 6px rgba(25,118,210,0.08);
+  border-radius:8px;
+}
+
+/* pista */
+.hint{
+  margin:8px 0 0;
+  color:#666;
+  font-size:14px;
+}
+
+/* adaptativo */
+@media (max-width:420px){
+  .envelope{ width:92%; height:220px; }
+  .envelope .card{ top:44px; padding:20px; }
+  .message{ font-size:16px; }
+}
