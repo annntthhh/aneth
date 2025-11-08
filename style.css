@@ -1,9 +1,11 @@
+/* --- NUEVO DISEÑO: ÍNDIGO PROFUNDO Y PLATA --- */
+
 :root{
-  --bg: #ffffff;
-  --envelope: #cfefff; /* azul cielo */
-  --accent: #1e88e5;
-  --shadow: rgba(0,0,0,0.18);
-  --text: #07324a;
+  --bg: #121212;            /* Negro profundo para el fondo de la página */
+  --envelope: #2c3e50;      /* Azul Índigo oscuro para el cuerpo del sobre */
+  --accent: #1abc9c;        /* Turquesa Oscuro (para acentos y botones) */
+  --shadow: rgba(0,0,0,0.4); /* Sombra más fuerte */
+  --text: #ecf0f1;          /* Texto Blanco/Gris Claro */
 }
 
 /* básico */
@@ -11,7 +13,8 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  /* Cambio de fuente a una más moderna y limpia */
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
   background:var(--bg);
   color:var(--text);
   display:flex;
@@ -39,7 +42,8 @@ body{
   right:20px;
   top:0;
   height:140px;
-  background: linear-gradient(180deg, #e9f8ff, var(--envelope));
+  /* Degradado sutil con el color del sobre */
+  background: linear-gradient(180deg, #34495e, var(--envelope));
   border-radius:10px;
   transform-origin:top center;
   transform:rotateX(0deg);
@@ -62,17 +66,18 @@ body{
   z-index:1;
 }
 
-/* tarjeta interior con estampado de corazones repetido y más visible */
+/* tarjeta interior con estampado de corazones (cambio de color) */
 .envelope .card{
   position:absolute;
   left:8px;
   right:8px;
   top:0;
   bottom:0;
-  background-color: var(--envelope);
+  /* La tarjeta interior es gris claro para alto contraste */
+  background-color: #ecf0f1; 
   border-radius:12px;
   padding:32px 24px;
-  box-shadow: 0 18px 46px rgba(2,28,45,0.06);
+  box-shadow: 0 18px 46px rgba(0,0,0,0.1);
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -80,8 +85,8 @@ body{
   transform:translateY(0);
   transition:transform 420ms ease, opacity 300ms ease;
   z-index:2;
-  /* patrón de corazones más marcado (SVG repeat) */
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path fill='%23ffffff' fill-opacity='0.14' d='M12 21s-6.716-4.35-9.094-7.044C0.833 11.8 2.172 7 6 7c1.927 0 3.02 1.23 3.894 2.06C10.98 8.23 12.073 7 14 7c3.828 0 5.167 4.8 3.094 6.956C18.716 16.65 12 21 12 21z'/></svg>");
+  /* patrón de corazones más discreto (color de fondo de la tarjeta) */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path fill='%23bdc3c7' fill-opacity='0.16' d='M12 21s-6.716-4.35-9.094-7.044C0.833 11.8 2.172 7 6 7c1.927 0 3.02 1.23 3.894 2.06C10.98 8.23 12.073 7 14 7c3.828 0 5.167 4.8 3.094 6.956C18.716 16.65 12 21 12 21z'/></svg>");
   background-repeat: repeat;
   background-size: 48px 48px;
 }
@@ -89,9 +94,9 @@ body{
 /* encabezado y mensaje */
 .envelope h1{
   margin:0 0 10px;
-  font-size:22px;
-  color:var(--accent);
-  letter-spacing:0.4px;
+  font-size:24px; /* Un poco más grande */
+  color:var(--accent); /* Color de acento turquesa */
+  letter-spacing:1px; /* Más espaciado para un look moderno */
 }
 .message{
   margin:0 0 14px;
@@ -99,24 +104,26 @@ body{
   opacity:0;
   transform:translateY(12px) scale(0.99);
   transition:opacity 420ms ease 180ms, transform 420ms ease 180ms;
-  color: #032a3a;
+  color: #333; /* Texto oscuro sobre el fondo claro de la tarjeta */
   text-align:center;
   white-space:pre-wrap;
   word-break:break-word;
-  line-height:1.2;
+  line-height:1.4; /* Más espacio entre líneas */
 }
 
-/* pequeño brillo y corazón flotante */
+/* pequeño brillo y corazón flotante (ajustado para fondo oscuro) */
 .envelope::after{
-  content:'
-';
+  content:'';
   position:absolute;
   right:18px;
   top:18px;
   width:48px;
   height:48px;
-  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  border-radius:50%;
+  /* El brillo ahora es un corazón simple que contrasta */
+  background-color: #e74c3c; /* Pequeño corazón rojo discreto */
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
   z-index:4;
 }
 
@@ -125,12 +132,17 @@ body{
 .open-btn, .music-btn{
   border:0;
   background:var(--accent);
-  color:white;
-  padding:8px 14px;
-  border-radius:22px;
+  color:var(--bg); /* Texto oscuro sobre el botón de acento */
+  padding:10px 18px; /* Botones más grandes */
+  border-radius:4px; /* Bordes más rectos para un look moderno */
   cursor:pointer;
   font-weight:700;
-  box-shadow: 0 8px 18px rgba(30,136,229,0.18);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.open-btn:hover, .music-btn:hover {
+    background: #16a085; /* Un tono más oscuro de Turquesa al pasar el mouse */
 }
 
 /* estado abierto (solapa gira y carta sube) */
@@ -139,7 +151,7 @@ body{
 .envelope.open .message{ opacity:1; transform:translateY(0) scale(1); }
 
 /* pista y responsive */
-.hint{ margin-top:12px; color:#666; font-size:14px; }
+.hint{ margin-top:12px; color:#95a5a6; font-size:14px; }
 @media (max-width:520px){
   .envelope{ width:94%; height:240px; }
   .message{ font-size:16px; }
